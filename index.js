@@ -43,8 +43,8 @@ const url = require("url")
 //////////////////////////////////////////////////////////////
 // SERVER
 // we are replacing the ProductName in tempCard with our item.productName for every of the 5 objects in dataObject. 
-const replaceTemplate = (tempCard, item) => {
-    let output = tempCard.replace(/{%PRODUCTNAME%}/g,item.productName) // regular expression will replace all the placeholder and not just the first one
+const replaceTemplate = (template, item) => {
+    let output = template.replace(/{%PRODUCTNAME%}/g,item.productName) // regular expression will replace all the placeholder and not just the first one
     output = output.replace(/{%IMAGE%}/g,item.image)
     output = output.replace(/{%QUANTITY%}/g,item.quantity)
     output = output.replace(/{%PRICE%}/g,item.price)
@@ -72,13 +72,13 @@ const tempCard = fs.readFileSync(`${__dirname}/templates/template-card.html`, "u
 
 // creating the server:
 const server = http.createServer((req, res) => {
-    // console.log(req);
-    // console.log(req.url);
-    // saving request url in variable:
-    const pathName = req.url
+    // destructering the two objects query and pathname inside req.url:
+    // query object holds the id of the product, pathname holds the path url
+    console.log(url.parse(req.url, true));
+    const {query, pathname} = url.parse(req.url, true);
 
     //Routing: Overview page
-    if(pathName === "/" || pathName==="/overview") {
+    if(pathname === "/" || pathname==="/overview") {
     res.writeHead(200, {"Content-type" : "text/html"})
 
     // map through dataObject array of objects and call on every object the replaceTemplate(tempCard,item) function. We pass as arguments the tempCard which we read already and the item, which is the current object when we map through.
@@ -90,15 +90,14 @@ const server = http.createServer((req, res) => {
     res.end(output)
         
     // Product page
-    }else if ( pathName === "/product") {
+    }else if ( pathname === "/product") {
+        const product = dataObject[query.id]
         res.writeHead(200, {"Content-type" : "text/html"})
-        const productHtml = dataObject.map(item => replaceTemplate(tempProduct, item)).join("")
-        const output = tempOverview.replace("{%PRODUCT_CARDS%}", productHtml)
+        const output = replaceTemplate(tempProduct, product)
         res.end(output)
-
         // res.end("This is the product")
     // API
-    }else if ( pathName==="/api") {
+    }else if ( pathname==="/api") {
             res.writeHead(200, {"Content-type" : "application/json"})
             res.end(data)
     // Not found 404 page
