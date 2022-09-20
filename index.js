@@ -91,7 +91,12 @@ const server = http.createServer((req, res) => {
         
     // Product page
     }else if ( pathName === "/product") {
-        res.end("This is the product")
+        res.writeHead(200, {"Content-type" : "text/html"})
+        const productHtml = dataObject.map(item => replaceTemplate(tempProduct, item)).join("")
+        const output = tempOverview.replace("{%PRODUCT_CARDS%}", productHtml)
+        res.end(output)
+
+        // res.end("This is the product")
     // API
     }else if ( pathName==="/api") {
             res.writeHead(200, {"Content-type" : "application/json"})
