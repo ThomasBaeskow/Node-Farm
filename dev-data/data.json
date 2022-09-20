@@ -53,5 +53,17 @@
     "price": "2.00",
     "organic": false,
     "description": "Also known as maize, corn is one of the most popular cereal grains in the world. Popcorn and sweet corn are commonly eaten varieties, but refined corn products are also widely consumed, frequently as ingredients in foods. These include tortillas, tortilla chips, polenta, cornmeal, corn flour, corn syrup, and corn oil. Whole-grain corn is as healthy as any cereal grain, rich in fiber and many vitamins, minerals, and antioxidants."
+  },
+  {
+    "id": 5,
+    "productName": "Thommis Kush",
+    "image": "🚬",
+    "from": "Germany",
+    "nutrients": "Sativa",
+    "quantity": "10 🚬",
+    "price": "50.00",
+    "organic": true,
+    "description": "The definition of kush is a specific type of marijuana but it is also used as one of the street names for marijuana. An example of kush is marijuana from the mountain areas of India. noun. 1. Marijuana, or a variety of marijuana originating in Afghanistan and northern Pakistan. Kush strains may exhibit deep green colas and leaves with hints of purple. Aroma can vary between earthy, floral, pungent, pine, incense, sweet fruit, hash spice, pepper, citrus, gas, and herbs."
   }
 ]
+
